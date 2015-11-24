@@ -1,27 +1,9 @@
-"""
-Copyright 2012 Basho Technologies, Inc.
-
-This file is provided to you under the Apache License,
-Version 2.0 (the "License"); you may not use this file
-except in compliance with the License.  You may obtain
-a copy of the License at
-
-  http://www.apache.org/licenses/LICENSE-2.0
-
-Unless required by applicable law or agreed to in writing,
-software distributed under the License is distributed on an
-"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-KIND, either express or implied.  See the License for the
-specific language governing permissions and limitations
-under the License.
-"""
-
 import socket
 import struct
-import riak_pb
+import riak.riak_pb
 from riak.security import SecurityError, USE_STDLIB_SSL
 from riak import RiakError
-from riak_pb.messages import (
+from riak.riak_pb.messages import (
     MESSAGE_CLASSES,
     MSG_CODE_ERROR_RESP,
     MSG_CODE_START_TLS,
@@ -103,7 +85,7 @@ class RiakPbcConnection(object):
         Note: Riak will sleep for a short period of time upon a failed
               auth request/response to prevent denial of service attacks
         """
-        req = riak_pb.RpbAuthReq()
+        req = riak.riak_pb.RpbAuthReq()
         req.user = str_to_bytes(self._client._credentials.username)
         req.password = str_to_bytes(self._client._credentials.password)
         msg_code, _ = self._non_connect_request(MSG_CODE_AUTH_REQ, req,
