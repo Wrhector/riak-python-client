@@ -2,6 +2,9 @@ from riak import RiakError
 from riak.content import RiakContent
 from riak.util import decode_index_value, str_to_bytes, bytes_to_str
 from riak.multidict import MultiDict
+from riak.riak_pb.riak_pb2 import RpbBucketProps
+from riak.riak_pb.riak_dt_pb2 import MapField, DtFetchResp
+
 from six import string_types, PY2
 
 
@@ -12,10 +15,10 @@ def _invert(d):
         out[value] = key
     return out
 
-REPL_TO_PY = {riak.riak_pb.RpbBucketProps.FALSE: False,
-              riak.riak_pb.RpbBucketProps.TRUE: True,
-              riak.riak_pb.RpbBucketProps.REALTIME: 'realtime',
-              riak.riak_pb.RpbBucketProps.FULLSYNC: 'fullsync'}
+REPL_TO_PY = {RpbBucketProps.FALSE: False,
+              RpbBucketProps.TRUE: True,
+              RpbBucketProps.REALTIME: 'realtime',
+              RpbBucketProps.FULLSYNC: 'fullsync'}
 
 REPL_TO_PB = _invert(REPL_TO_PY)
 
@@ -40,22 +43,22 @@ MODFUN_PROPS = ['chash_keyfun', 'linkfun']
 QUORUM_PROPS = ['r', 'pr', 'w', 'pw', 'dw', 'rw']
 
 MAP_FIELD_TYPES = {
-    riak.riak_pb.MapField.COUNTER: 'counter',
-    riak.riak_pb.MapField.SET: 'set',
-    riak.riak_pb.MapField.REGISTER: 'register',
-    riak.riak_pb.MapField.FLAG: 'flag',
-    riak.riak_pb.MapField.MAP: 'map',
-    'counter': riak.riak_pb.MapField.COUNTER,
-    'set': riak.riak_pb.MapField.SET,
-    'register': riak.riak_pb.MapField.REGISTER,
-    'flag': riak.riak_pb.MapField.FLAG,
-    'map': riak.riak_pb.MapField.MAP
+    MapField.COUNTER: 'counter',
+    MapField.SET: 'set',
+    MapField.REGISTER: 'register',
+    MapField.FLAG: 'flag',
+    MapField.MAP: 'map',
+    'counter': MapField.COUNTER,
+    'set': MapField.SET,
+    'register': MapField.REGISTER,
+    'flag': MapField.FLAG,
+    'map': MapField.MAP
 }
 
 DT_FETCH_TYPES = {
-    riak.riak_pb.DtFetchResp.COUNTER: 'counter',
-    riak.riak_pb.DtFetchResp.SET: 'set',
-    riak.riak_pb.DtFetchResp.MAP: 'map'
+    DtFetchResp.COUNTER: 'counter',
+    DtFetchResp.SET: 'set',
+    DtFetchResp.MAP: 'map'
 }
 
 
