@@ -37,11 +37,10 @@ if hasattr(ssl, 'OPENSSL_VERSION_NUMBER'):
     # For Python 2.7 and Python 3.x
     sslver = ssl.OPENSSL_VERSION_NUMBER
     # Be sure to use at least OpenSSL 1.0.1g
-    if sslver < OPENSSL_VERSION_101G or \
-       not hasattr(ssl, 'PROTOCOL_TLSv1_2'):
+    if not hasattr(ssl, 'PROTOCOL_TLSv1_2'):
         verstring = ssl.OPENSSL_VERSION
         msg = "Found {0} version, but expected at least OpenSSL 1.0.1g.  " \
-              "Security may not support TLS 1.2.".format(verstring)
+              "Security does not support TLS 1.2.".format(verstring)
         warnings.warn(msg, UserWarning)
     if hasattr(ssl, 'PROTOCOL_TLSv1_2'):
         DEFAULT_TLS_VERSION = ssl.PROTOCOL_TLSv1_2
@@ -56,11 +55,10 @@ else:
     # For Python 2.6
     sslver = OpenSSL.SSL.OPENSSL_VERSION_NUMBER
     # Be sure to use at least OpenSSL 1.0.1g
-    if (sslver < OPENSSL_VERSION_101G) or \
-            not hasattr(OpenSSL.SSL, 'TLSv1_2_METHOD'):
+    if not hasattr(OpenSSL.SSL, 'TLSv1_2_METHOD'):
         verstring = OpenSSL.SSL.SSLeay_version(OpenSSL.SSL.SSLEAY_VERSION)
         msg = "Found {0} version, but expected at least OpenSSL 1.0.1g.  " \
-              "Security may not support TLS 1.2.".format(verstring)
+              "Security does not support TLS 1.2.".format(verstring)
         warnings.warn(msg, UserWarning)
     if hasattr(OpenSSL.SSL, 'TLSv1_2_METHOD'):
         DEFAULT_TLS_VERSION = OpenSSL.SSL.TLSv1_2_METHOD
