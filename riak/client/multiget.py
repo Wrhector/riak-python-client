@@ -107,7 +107,10 @@ class MultiGetPool(object):
         """
         Signals the worker threads to exit and waits on them.
         """
-        self._stop.set()
+        try:
+            self._stop.set()
+        except TypeError:
+            pass
         for worker in self._workers:
             worker.join()
 
